@@ -27,14 +27,10 @@ npm install @sektek/synaptik-amqp
 Save this as `listener.mjs`:
 
 ```js
-import { AmqpGateway, DefaultChannelProvider } from '@sektek/synaptik-amqp';
-
-const channelProvider = new DefaultChannelProvider({
-  connectionOptions: { url: 'amqp://localhost:5672' },
-});
+import { AmqpGateway } from '@sektek/synaptik-amqp';
 
 const gateway = new AmqpGateway({
-  channelProvider,
+  connectionOptions: { url: 'amqp://localhost:5672' },
   queueName: 'orders.example',
   queueOptions: { durable: false },
   prefetch: 1,
@@ -47,11 +43,7 @@ await gateway.start();
 console.log('Listening on orders.example');
 
 process.once('SIGINT', async () => {
-  try {
-    await gateway.stop();
-  } finally {
-    await channelProvider.stop();
-  }
+  await gateway.stop();
 });
 ```
 
@@ -69,27 +61,19 @@ Save this as `publisher.mjs`:
 
 ```js
 import { randomUUID } from 'node:crypto';
-import { AmqpChannel, DefaultChannelProvider } from '@sektek/synaptik-amqp';
-
-const channelProvider = new DefaultChannelProvider({
-  connectionOptions: { url: 'amqp://localhost:5672' },
-});
+import { AmqpChannel } from '@sektek/synaptik-amqp';
 
 const publisher = new AmqpChannel({
-  channelProvider,
+  connectionOptions: { url: 'amqp://localhost:5672' },
   queueName: 'orders.example',
 });
 
-try {
-  await publisher.send({
-    id: randomUUID(),
-    type: 'order.created',
-    data: { orderId: 'A-1', total: 42 },
-  });
-  console.log('Sent order A-1');
-} finally {
-  await channelProvider.stop();
-}
+await publisher.send({
+  id: randomUUID(),
+  type: 'order.created',
+  data: { orderId: 'A-1', total: 42 },
+});
+console.log('Sent order A-1');
 ```
 
 In a second terminal, run:
@@ -98,7 +82,7 @@ In a second terminal, run:
 node publisher.mjs
 ```
 
-Both components use `DefaultChannelProvider`, which creates its own `DefaultConnectionProvider` from `connectionOptions`. Passing the provider explicitly makes cleanup available through `stop()` while retaining the library-managed connection path.
+Both components use `connectionOptions` so the integration constructs its default channel and connection providers. Explicitly sharing a `DefaultChannelProvider` is useful when several gateways need to share a channel, but is unnecessary for this first example.
 
 ## 3. Check the result
 
@@ -114,7 +98,7 @@ This example uses RabbitMQ's default exchange and a queue-name routing key. It i
 
 ## Clean up
 
-Press Ctrl+C in the listener terminal to stop consuming and close its managed channel/connection. Press Ctrl+C in the RabbitMQ terminal to remove the temporary broker container.
+Press Ctrl+C in the listener terminal to stop consuming. The default connection provider participates in the library's process lifecycle management. Press Ctrl+C in the RabbitMQ terminal to remove the temporary broker container.
 
 ## Troubleshooting
 
@@ -126,4 +110,4 @@ See the [Synaptik AMQP reference](https://github.com/sektek/synaptik-amqp#readme
 
 ---
 
-**Verification record:** **Inspected** against `src/amqp-gateway.ts`, `src/amqp-channel.ts`, `src/default-channel-provider.ts`, `src/default-connection-provider.ts`, and repository guidance. Not executed or type-checked; actual broker delivery, signal handling, and process exit remain unverified.
+**Verification record:** **Inspected** against `src/amqp-gateway.ts`, `src/amqp-channel.ts`, `src/default-channel-provider.ts`, `src/default-connection-provider.ts`, and repository guidance. Not executed or type-checked; actual broker delivery, provider shutdown, and process exit remain unverified.
