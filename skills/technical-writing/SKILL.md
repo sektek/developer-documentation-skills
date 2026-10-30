@@ -35,6 +35,7 @@ Choose terms deliberately to make documentation accurate, welcoming, and underst
 - Prefer descriptions of behavior or roles over labels with unnecessary social or historical associations.
 - For access controls, prefer `allowlist` and `blocklist`, or explain the actual behavior using verbs such as "allow" and "exclude".
 - For system relationships, choose terms that reflect the implementation, such as `primary`/`secondary`, `source`/`replica`, or `controller`/`worker`. These are not interchangeable; verify which roles actually apply.
+- Use singular **they/them/their** when referring to a person whose pronouns are unknown or irrelevant. Do not default to **he/him** or **she/her** based on role, name, or presumed gender. Use a person's stated pronouns when known, and prefer a role noun or a rewritten sentence when it reads more clearly.
 - Avoid stereotypes, assumptions about readers' identities or abilities, and language that equates disability with failure or deficiency.
 - Preserve exact code identifiers, CLI flags, error messages, configuration keys, and third-party product names. Do not invent aliases that users cannot execute or search for.
 - When legacy terminology appears in an existing API, use the exact identifier where necessary and explain it neutrally. Suggest renaming only as a separate engineering change requiring compatibility review.
