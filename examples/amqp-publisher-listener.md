@@ -16,7 +16,7 @@ Use `@sektek/synaptik-amqp` to publish an order event to a RabbitMQ queue and re
 Install the integration:
 
 ```sh
-npm install @sektek/synaptik-amqp
+npm install @sektek/synaptik-amqp amqplib
 ```
 
 ## 1. Start a listener
@@ -24,10 +24,13 @@ npm install @sektek/synaptik-amqp
 Create `listener.mjs`:
 
 ```js
+import { connect } from 'amqplib';
 import { AmqpGateway } from '@sektek/synaptik-amqp';
 
+const connection = await connect('amqp://localhost:5672');
+
 const gateway = new AmqpGateway({
-  connectionOptions: { url: 'amqp://localhost:5672' },
+  connection,
   queueName: 'orders',
   queueOptions: { durable: true },
   prefetch: 10,
@@ -41,7 +44,7 @@ console.log('Waiting for orders...');
 
 process.once('SIGINT', async () => {
   await gateway.stop();
-  process.exit(0);
+  await connection.close();
 });
 ```
 
@@ -59,7 +62,10 @@ Create `publisher.mjs`:
 
 ```js
 import { randomUUID } from 'node:crypto';
+import { connect } from 'amqplib';
 import { AmqpChannel } from '@sektek/synaptik-amqp';
+
+const connection = await connect('amqp://localhost:5672');
 
 const channel = new AmqpChannel({
   connectionOptions: { url: 'amqp://localhost:5672' },
@@ -73,6 +79,7 @@ await channel.send({
 });
 
 console.log('Published order A-1');
+await connection.close();
 ```
 
 Run it in another terminal:
@@ -97,4 +104,4 @@ See the [Synaptik AMQP README](https://github.com/sektek/synaptik-amqp#readme) f
 
 ---
 
-**Authoring verification:** **Inspected** against the existing `sektek/synaptik-amqp` README and public API examples. The JavaScript blocks and Docker command have **not** been executed or type-checked. In particular, publisher connection cleanup and standalone process exit behavior should be checked in an end-to-end test before publishing this as production-ready documentation.
+**Authoring verification:** **Inspected** against the existing `sektek/synaptik-amqp` README and public API examples. The JavaScript blocks and Docker command have **not** been executed or type-checked. Connection shutdown and end-to-end delivery should be checked before publishing this as production-ready documentation.
