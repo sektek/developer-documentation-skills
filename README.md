@@ -17,7 +17,7 @@ Each stage can run independently. The full workflow is autonomous by default, wi
 
 ## Editorial policy
 
-See `references/style-decisions.md`. Red Hat's style guide informs candidate rules; decisions remain provisional until reviewed. The intended output format is Markdown, not AsciiDoc.
+See `references/style-decisions.md` for our original, evolving writing conventions. The intended output format is Markdown.
 
 ## First evaluation
 
