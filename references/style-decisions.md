@@ -34,6 +34,20 @@ These are original, project-specific conventions for developer documentation. Ap
 | Avoid unsupported claims | Verify compatibility, performance, defaults, and guarantees against evidence. | Maintains trust |
 | Avoid misleading anthropomorphism | Prefer descriptions of observable system behavior to implied intent. | Technical precision |
 
+## Conscious language
+
+Prefer inclusive, neutral, and technically specific terminology in prose. Describe what systems do rather than using inherited labels when clearer language is available.
+
+| Context | Prefer | Caution |
+| --- | --- | --- |
+| Access control lists | `allowlist` / `blocklist`, or "allow" / "exclude" | Avoid renaming established configuration keys in instructions |
+| Data replication | `primary` / `secondary`, `source` / `replica` | Choose based on actual topology, not a universal substitution |
+| Control relationships | `controller` / `worker`, `requester` / `responder` | These describe different relationships |
+| Readers | Describe relevant roles, tasks, and prerequisites | Avoid assumptions about identity, ability, or background |
+| Existing identifiers | Preserve exact exported symbols and commands | Propose API renames separately, with compatibility implications |
+
+Review terminology in context. A word appearing in a compound, proper name, quotation, or public API is not automatically an editorial defect. Do not sacrifice technical accuracy to eliminate a term mechanically.
+
 ## Code and terminology
 
 | Decision | Guidance | Reason |
