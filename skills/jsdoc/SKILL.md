@@ -24,6 +24,12 @@ Document the contract a caller needs to use an API correctly. Favor thorough, us
 - Use `@example`, `@see`, `@deprecated`, and other supported tags only when they provide real value. Deprecation guidance must name a verified replacement or explain that none is known.
 - Use valid JSDoc syntax and precise identifiers. Keep examples small, copyable, and aligned with public APIs; apply [code-examples](../code-examples/SKILL.md) when adding executable examples.
 
+## Keep development history out of JSDoc
+
+JSDoc describes the **current public contract**, not the history of how the implementation arrived there. Do not include ticket or issue IDs, PR references, review discussions, incident narratives, implementation chronology, or explanations such as "changed to this approach because of issue X." Do not use JSDoc to bypass a repository's restrictions on implementation comments.
+
+Document the observable behavior, constraints, or caveats that callers need to know, without the development backstory. If the rationale itself must be preserved, use an appropriate design document, ADR, issue, or PR discussion rather than attaching it to an API declaration. A reference to an external issue is appropriate only when it is itself part of an explicitly requested, consumer-relevant public contract and repository conventions permit it.
+
 ## Avoid misleading comments
 
 - Do not infer runtime validation, immutability, delivery guarantees, exception types, or cleanup behavior from static types alone.
