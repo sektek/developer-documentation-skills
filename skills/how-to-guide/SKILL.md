@@ -45,12 +45,3 @@ Adapt the following path rather than treating it as a mandatory template:
 Use the code-examples skill to check every code block. Run type-checking and an end-to-end exercise when the environment permits; verify commands, links, and expected output. Record the actual evidence level for each example: **Verified**, **Type-checked**, **Inspected**, **Unverified**, or **Failed**.
 
 Review with the documentation-review skill. Deliver the guide, a brief record of the reader's path, and a verification summary with any untested external-service assumptions. Never call an example "working" solely because it resembles an existing README snippet.
-
-## Evaluation prompts (not instructions for the guide)
-
-Use the following to evaluate the skill itself, not as content to insert into a user's document:
-
-- Given a library with an AMQP publisher and listener, write a guide that connects both and demonstrates a received event.
-- Given an incomplete guide with a missing broker prerequisite, repair the prerequisite and verification steps.
-- Given an API reference listing publisher options, rewrite it as a task-specific guide without copying the option catalog.
-- Given an example that calls an internal handler adapter directly, replace it with the intended public entry point.
