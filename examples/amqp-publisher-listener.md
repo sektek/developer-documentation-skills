@@ -16,7 +16,7 @@ Use `@sektek/synaptik-amqp` to publish an order event to a RabbitMQ queue and re
 Install the integration:
 
 ```sh
-npm install @sektek/synaptik-amqp amqplib
+npm install @sektek/synaptik-amqp
 ```
 
 ## 1. Start a listener
@@ -24,13 +24,10 @@ npm install @sektek/synaptik-amqp amqplib
 Create `listener.mjs`:
 
 ```js
-import { connect } from 'amqplib';
 import { AmqpGateway } from '@sektek/synaptik-amqp';
 
-const connection = await connect('amqp://localhost:5672');
-
 const gateway = new AmqpGateway({
-  connection,
+  connectionOptions: { url: 'amqp://localhost:5672' },
   queueName: 'orders',
   queueOptions: { durable: true },
   prefetch: 10,
@@ -44,7 +41,6 @@ console.log('Waiting for orders...');
 
 process.once('SIGINT', async () => {
   await gateway.stop();
-  await connection.close();
 });
 ```
 
@@ -79,7 +75,6 @@ await channel.send({
 });
 
 console.log('Published order A-1');
-await connection.close();
 ```
 
 Run it in another terminal:
@@ -87,6 +82,8 @@ Run it in another terminal:
 ```sh
 node publisher.mjs
 ```
+
+Both components use the integration's built-in connection provider through `connectionOptions`, rather than creating an `amqplib` connection directly. The provider manages the connection lifecycle and can reestablish a dropped connection.
 
 ## 3. Verify delivery
 
@@ -104,4 +101,4 @@ See the [Synaptik AMQP README](https://github.com/sektek/synaptik-amqp#readme) f
 
 ---
 
-**Authoring verification:** **Inspected** against the existing `sektek/synaptik-amqp` README and public API examples. The JavaScript blocks and Docker command have **not** been executed or type-checked. Connection shutdown and end-to-end delivery should be checked before publishing this as production-ready documentation.
+**Authoring verification:** **Inspected** against the existing `sektek/synaptik-amqp` README and public API examples. The JavaScript blocks and Docker command have **not** been executed or type-checked. Automatic connection management, process exit behavior, and end-to-end delivery should be checked before publishing this as production-ready documentation.
