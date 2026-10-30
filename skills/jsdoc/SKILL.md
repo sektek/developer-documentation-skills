@@ -34,6 +34,6 @@ Document the contract a caller needs to use an API correctly. Comments should ad
 
 ## Verify and deliver
 
-Review comment placement, syntax, tag names, referenced symbols, and links. Where tooling is available, run the repository's documentation lint, type-check, or documentation generator and report what ran. Do not claim validation without evidence.
+Review comment placement, syntax, tag names, referenced symbols, and links. Run the repository's configured ESLint checks for affected files, including any JSDoc-related rules. Use the project's existing ESLint command and configuration rather than assuming a particular plugin or rule set. Fix documentation-related lint findings without disabling rules or making unrelated implementation changes. Where available, also run the documentation generator or type-checker when relevant. If ESLint is unavailable or no JSDoc rules are configured, state that limitation; a passing ESLint run alone does not prove the comments are accurate. Report the commands run and results; do not claim validation without evidence.
 
 Report which declarations were documented, any unresolved contract questions, and verification limitations. A coverage pass should identify intentionally undocumented declarations rather than manufacturing low-value comments to reach a percentage.
