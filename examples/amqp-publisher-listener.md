@@ -1,104 +1,115 @@
-# Publish and consume events with RabbitMQ
+# Publish and receive an order event with RabbitMQ
 
-Use `@sektek/synaptik-amqp` to publish an order event to a RabbitMQ queue and receive it with an `AmqpGateway`.
+> **Evaluation fixture:** This document is used to exercise the how-to-guide skill, not intended for publication as product documentation.
+
+Create a listener with `AmqpGateway`, then send an event to it with `AmqpChannel`. The integration's default providers establish and manage AMQP connections; you do not need to call `amqplib.connect()`.
 
 ## Prerequisites
 
-- Node.js and npm with support for ESM.
-- A running RabbitMQ broker reachable at `amqp://localhost:5672`. For local development, you can start one with Docker:
+- Node.js with ESM support and npm.
+- Docker for a local RabbitMQ broker.
+- A directory for two example files.
 
-  ```sh
-  docker run --rm --name synaptik-rabbit -p 5672:5672 rabbitmq:4
-  ```
-
-- A project configured for ESM (for example, `"type": "module"` in `package.json`).
-
-Install the integration:
+Start RabbitMQ in a terminal:
 
 ```sh
+docker run --rm --name synaptik-rabbit -p 5672:5672 rabbitmq:4
+```
+
+In another terminal, initialize an ESM project and install the integration:
+
+```sh
+npm init -y
+npm pkg set type=module
 npm install @sektek/synaptik-amqp
 ```
 
-## 1. Start a listener
+## 1. Create the consumer
 
-Create `listener.mjs`:
+Save this as `listener.mjs`:
 
 ```js
 import { AmqpGateway } from '@sektek/synaptik-amqp';
 
 const gateway = new AmqpGateway({
   connectionOptions: { url: 'amqp://localhost:5672' },
-  queueName: 'orders',
-  queueOptions: { durable: true },
-  prefetch: 10,
+  queueName: 'orders.example',
+  queueOptions: { durable: false },
+  prefetch: 1,
   handler: async event => {
-    console.log('Received order:', event.data.orderId);
+    console.log('Received:', event.type, event.data.orderId);
   },
 });
 
 await gateway.start();
-console.log('Waiting for orders...');
+console.log('Listening on orders.example');
 
 process.once('SIGINT', async () => {
   await gateway.stop();
 });
 ```
 
-Run it in one terminal:
+Start it:
 
 ```sh
 node listener.mjs
 ```
 
-Wait until it prints `Waiting for orders...` before publishing.
+Wait for `Listening on orders.example`. The gateway declares the queue and starts consuming before it returns from `start()`.
 
-## 2. Publish an event
+## 2. Create the publisher
 
-Create `publisher.mjs`:
+Save this as `publisher.mjs`:
 
 ```js
 import { randomUUID } from 'node:crypto';
-import { connect } from 'amqplib';
 import { AmqpChannel } from '@sektek/synaptik-amqp';
 
-const connection = await connect('amqp://localhost:5672');
-
-const channel = new AmqpChannel({
+const publisher = new AmqpChannel({
   connectionOptions: { url: 'amqp://localhost:5672' },
-  queueName: 'orders',
+  queueName: 'orders.example',
 });
 
-await channel.send({
+await publisher.send({
   id: randomUUID(),
   type: 'order.created',
   data: { orderId: 'A-1', total: 42 },
 });
-
-console.log('Published order A-1');
+console.log('Sent order A-1');
 ```
 
-Run it in another terminal:
+In a second terminal, run:
 
 ```sh
 node publisher.mjs
 ```
 
-Both components use the integration's built-in connection provider through `connectionOptions`, rather than creating an `amqplib` connection directly. The provider manages the connection lifecycle and can reestablish a dropped connection.
+Both components use `connectionOptions` so the integration constructs its default channel and connection providers. Explicitly sharing a `DefaultChannelProvider` is useful when several gateways need to share a channel, but is unnecessary for this first example.
 
-## 3. Verify delivery
+## 3. Check the result
 
-The publisher should print `Published order A-1`. The listener should print `Received order: A-1`. The gateway acknowledges a message after its handler succeeds; if the handler throws, its default behavior is to negatively acknowledge and requeue the message.
+The publisher should print `Sent order A-1`. The listener should print:
 
-The example uses RabbitMQ's default exchange and routes by queue name. It assumes the listener has started and asserted the `orders` queue before the publisher runs. The durable queue declaration does **not** make the message persistent: persistence is a separate publish option.
+```text
+Received: order.created A-1
+```
+
+`AmqpGateway` acknowledges a message after the handler resolves. If processing throws, its default behavior is to negatively acknowledge and requeue it. A successful `send()` is not proof that a consumer processed the event.
+
+This example uses RabbitMQ's default exchange and a queue-name routing key. It intentionally starts the listener first so that the queue exists before publishing. The queue is non-durable for this local exercise; it does not demonstrate persistent delivery.
 
 ## Clean up
 
-Stop the listener with Ctrl+C, then stop the Docker container with Ctrl+C in the terminal running RabbitMQ.
+Press Ctrl+C in the listener terminal to stop consuming. The default connection provider registers with the library's process manager, but this fixture has not verified whether its shutdown behavior terminates the listener and publisher processes as expected. Press Ctrl+C in the RabbitMQ terminal to remove the temporary broker container.
 
-## Next steps
+## Troubleshooting
 
-See the [Synaptik AMQP README](https://github.com/sektek/synaptik-amqp#readme) for connection ownership, publishing options, acknowledgements, retries, and request/reply.
+If the listener cannot start, check that RabbitMQ is running and port 5672 is available. If the publisher runs but no event appears, check that the listener printed its ready message and that both scripts use `orders.example`.
+
+## Further reading
+
+See the [Synaptik AMQP reference](https://github.com/sektek/synaptik-amqp#readme) for routing, acknowledgements, connection providers, and request/reply.
 
 ---
 
-**Authoring verification:** **Inspected** against the existing `sektek/synaptik-amqp` README and public API examples. The JavaScript blocks and Docker command have **not** been executed or type-checked. Automatic connection management, process exit behavior, and end-to-end delivery should be checked before publishing this as production-ready documentation.
+**Verification record:** **Inspected** against `src/amqp-gateway.ts`, `src/amqp-channel.ts`, `src/default-channel-provider.ts`, `src/default-connection-provider.ts`, and repository guidance. Not executed or type-checked; actual broker delivery, provider shutdown, and process exit remain unverified.
