@@ -1,6 +1,6 @@
 # Editorial decisions
 
-This is an original, evolving local policy informed by the Red Hat style guide. Review each convention before adopting it.
+This is an original, evolving editorial policy for developer documentation. Review and refine conventions based on clarity, accuracy, and usefulness.
 
 | Topic | Provisional decision | Rationale |
 | --- | --- | --- |
@@ -10,5 +10,3 @@ This is an original, evolving local policy informed by the Red Hat style guide. 
 | Anthropomorphism | Discourage misleading phrasing | Preserve technical precision |
 | Terminology | Consistent, project-specific vocabulary | Match public APIs |
 | Markup | Markdown first | Target publishing format |
-
-Source for future review: https://www.stylepedia.net/style/
