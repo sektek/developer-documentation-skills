@@ -7,6 +7,8 @@ description: Create, revise, or review README files for software projects, libra
 
 Create a README that helps a developer decide whether the project meets their needs, accomplish a first useful task, and find the next level of documentation. Treat it as an entry point, not an exhaustive manual.
 
+Before updating a README in response to a code change, apply the placement decision in [documentation-workflow](../documentation-workflow/SKILL.md). A change does not automatically warrant a README edit; prefer focused documentation and a link when needed for discovery.
+
 Apply the [technical-writing](../technical-writing/SKILL.md), [markdown-authoring](../markdown-authoring/SKILL.md), and [code-examples](../code-examples/SKILL.md) skills as needed. Follow the repository's existing documentation conventions where they do not conflict with accuracy.
 
 ## Discover before drafting
