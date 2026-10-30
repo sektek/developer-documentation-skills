@@ -63,6 +63,3 @@ Provide:
 
 When asked only to review or propose an outline, do not rewrite the README without authorization.
 
-## Evaluation cases
-
-Use [SEK-278](https://linear.app/sektek/issue/SEK-278) (Synaptik) to test whether the README conveys a useful mental model through examples without becoming a textbook. Use [SEK-279](https://linear.app/sektek/issue/SEK-279) (Utility Belt) to test capability discovery without turning the README into an exhaustive API listing.
