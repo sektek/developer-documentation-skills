@@ -28,6 +28,18 @@ Write accurate, usable documentation for software developers. Apply the editoria
 - Prefer positive instructions when they are clearer; use explicit prohibitions for important constraints.
 - Use examples to clarify a behavior, not as a substitute for explaining necessary conditions.
 
+## Conscious language
+
+Choose terms deliberately to make documentation accurate, welcoming, and understandable.
+
+- Prefer descriptions of behavior or roles over labels with unnecessary social or historical associations.
+- For access controls, prefer `allowlist` and `blocklist`, or explain the actual behavior using verbs such as "allow" and "exclude".
+- For system relationships, choose terms that reflect the implementation, such as `primary`/`secondary`, `source`/`replica`, or `controller`/`worker`. These are not interchangeable; verify which roles actually apply.
+- Avoid stereotypes, assumptions about readers' identities or abilities, and language that equates disability with failure or deficiency.
+- Preserve exact code identifiers, CLI flags, error messages, configuration keys, and third-party product names. Do not invent aliases that users cannot execute or search for.
+- When legacy terminology appears in an existing API, use the exact identifier where necessary and explain it neutrally. Suggest renaming only as a separate engineering change requiring compatibility review.
+- Evaluate terminology in context rather than applying a blind word-replacement list.
+
 ## Technical accuracy
 
 - Never invent commands, output, supported versions, configuration defaults, or behavior.
