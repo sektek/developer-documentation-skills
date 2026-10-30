@@ -32,7 +32,7 @@ Adapt the following path rather than treating it as a mandatory template:
 
 ## Writing rules
 
-- Keep one coherent scenario throughout; use the same identifiers, queue names, and event types across steps.
+- Keep one coherent scenario throughout; use consistent names, identifiers, configuration values, and example data across steps.
 - Prefer the shortest path to a useful result. Include alternative approaches only if a choice is necessary to complete the task.
 - Explain *why* only when it affects a choice, a safety condition, or successful execution.
 - Use public APIs rather than internal helpers; show lifecycle management for services, connections, and consumers.
