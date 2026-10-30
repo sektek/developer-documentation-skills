@@ -44,6 +44,7 @@ Prefer inclusive, neutral, and technically specific terminology in prose. Descri
 | Data replication | `primary` / `secondary`, `source` / `replica` | Choose based on actual topology, not a universal substitution |
 | Control relationships | `controller` / `worker`, `requester` / `responder` | These describe different relationships |
 | Readers | Describe relevant roles, tasks, and prerequisites | Avoid assumptions about identity, ability, or background |
+| Pronouns | Use singular **they/them/their** when pronouns are unknown; respect stated pronouns when known | Do not assume **he/him** or **she/her** from a person's name, role, or perceived gender |
 | Existing identifiers | Preserve exact exported symbols and commands | Propose API renames separately, with compatibility implications |
 
 Review terminology in context. A word appearing in a compound, proper name, quotation, or public API is not automatically an editorial defect. Do not sacrifice technical accuracy to eliminate a term mechanically.
