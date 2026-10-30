@@ -13,6 +13,13 @@ Document the contract a caller needs to use an API correctly. Favor thorough, us
 2. Inspect existing comments, declarations, implementations, tests, and nearby conventions. Follow the project's chosen JSDoc/TSDoc tags and documentation generator, if any.
 3. Preserve accurate comments and avoid reformatting unrelated code. Do not modify implementation, exported types, signatures, or runtime behavior merely to satisfy documentation.
 
+## Establish intent and documentation ownership
+
+- Determine a declaration's **primary purpose** from its public role, naming, usage, and surrounding architecture before writing its summary. Implementation mechanics and optional secondary behavior must not displace that purpose. For example, a filter with an optional rejection handler remains a filter, not a router.
+- Give each fact one natural documentation home. Class documentation explains the component's purpose and essential usage; event types describe emitted events; options and properties describe configuration; methods describe invocation-specific contracts. Link related declarations rather than restating their details.
+- Do not narrate a class's implementation, list all of its events, or enumerate its options when dedicated public declarations already document them. Repeat a detail only when it is essential to understand the higher-level contract without navigating elsewhere.
+- Before drafting, inspect the related public types and existing JSDoc to identify what is already documented. After drafting, check for duplicated information and for descriptions that overemphasize incidental behavior.
+
 ## Describe the contract
 
 - Start with a clear summary of what the declaration does or represents, written for its caller. Expand with paragraphs or short lists when they explain responsibilities, intended use, interactions with other components, or important behavior. Do not impose an artificial brevity limit.
