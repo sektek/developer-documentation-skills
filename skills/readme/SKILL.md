@@ -1,6 +1,6 @@
 ---
 name: readme
-description: Create or revise developer-facing repository and library READMEs that help readers evaluate, adopt, and navigate a project.
+description: Create, revise, or review README files for software projects, libraries, and repositories.
 ---
 
 # README authoring
