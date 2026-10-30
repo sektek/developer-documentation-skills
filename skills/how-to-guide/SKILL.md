@@ -13,9 +13,10 @@ Apply [technical-writing](../technical-writing/SKILL.md), [markdown-authoring](.
 
 1. Define a concrete outcome and a reader with the minimum necessary prior knowledge.
 2. Inspect implementation, public exports, package metadata, tests, and existing examples for each API the guide will use.
-3. Identify prerequisites: tools, runtime, external services, credentials, permissions, and expected starting state.
-4. Identify operational hazards: destructive actions, duplicate processing, resource cleanup, retries, credentials, and environment-specific behavior.
-5. Record unknowns; never manufacture commands, flags, API signatures, guarantees, or expected output.
+3. Compare plausible public entry points before choosing an example. Determine which is intended for ordinary callers versus advanced integration, and check what each delegates or requires the caller to manage (resource ownership, cleanup, reconnection, retries, and error handling). Prefer the supported high-level path that retains the library's intended behavior; document a lower-level choice when the task requires it.
+4. Identify prerequisites: tools, runtime, external services, credentials, permissions, and expected starting state.
+5. Identify operational hazards: destructive actions, duplicate processing, resource cleanup, retries, credentials, and environment-specific behavior.
+6. Record unknowns; never manufacture commands, flags, API signatures, guarantees, or expected output.
 
 ## Structure the guide
 
@@ -41,6 +42,8 @@ Adapt the following path rather than treating it as a mandatory template:
 - Prefer a link to a detailed explanation over an extended detour.
 
 ## Verify and deliver
+
+Review API selection separately from code correctness: a compiling and running example may still demonstrate a supported but non-idiomatic integration path. Ground the recommendation in implementation, documentation, and tests; flag uncertain intent for maintainer review.
 
 Use the code-examples skill to check every code block. Run type-checking and an end-to-end exercise when the environment permits; verify commands, links, and expected output. Record the actual evidence level for each example: **Verified**, **Type-checked**, **Inspected**, **Unverified**, or **Failed**.
 
