@@ -17,13 +17,9 @@ Apply [technical-writing](../technical-writing/SKILL.md) and [markdown-authoring
 4. Define one coherent scope. Do not create a separate page for every class, concept, or pattern by default.
 5. Use the documentation-workflow skill to choose placement **and a discoverable entry point** (such as an existing README or docs index); do not prescribe a directory structure or require conceptual documentation for every repository.
 
-## Establish an evidence-based mental model
+## Select the mental model to explain
 
-- Investigate public contracts, usage examples, call sites, tests, and existing explanations before assigning responsibilities. Treat names and familiar design-pattern vocabulary as clues, not proof.
-- Establish terminology from the project. A term may name a callable contract, a component implementing it, and a role in a larger composition. Explain the distinction when it matters rather than forcing one universal definition.
-- Identify the essential concepts and **relationships between them**: who supplies what, how information or control flows, which component owns a decision, and where responsibilities begin and end.
-- Separate what the public design promises from what happens to be true of the current implementation. Avoid narrating source files, inheritance trees, or development history as a substitute for explaining the model.
-- Verify meaningful assertions against evidence. When behavior or intent is ambiguous, flag the uncertainty for human review instead of inventing a coherent-sounding architecture.
+Use [api-research](../api-research/SKILL.md) to establish evidence for the relevant roles, terminology, relationships, boundaries, and compatibility constraints. Select the few relationships that answer the reader's conceptual question; do not turn research notes into a catalog of components.
 
 ## Write the explanation
 
