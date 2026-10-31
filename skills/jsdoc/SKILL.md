@@ -23,7 +23,7 @@ Document the contract a caller needs to use an API correctly. Favor thorough, us
 ## Describe the contract
 
 - Start with a clear summary of what the declaration does or represents, written for its caller. Expand with paragraphs or short lists when they explain responsibilities, intended use, interactions with other components, or important behavior. Do not impose an artificial brevity limit.
-- Document important semantics not visible in types: defaults, units, valid ranges, ordering, side effects, resource ownership, disposal, errors, retries, and guarantees. Include only what is relevant and supported by evidence.
+- Document important semantics not visible in types: defaults, units, valid ranges, ordering, side effects, resource ownership, disposal, errors, retries, and guarantees. Include only what is relevant and supported by evidence. Frame these as **positive, consumer-relevant guarantees and behavior**, not inventories of capabilities the API lacks. Describe an absence or limitation only when it is a surprising, material part of the contract that callers must account for.
 - For public functions and methods, ordinarily document each parameter with `@param` and the result with `@returns` where applicable, including what values mean or how they are used. Use `@throws` for meaningful, verified failure contracts. Avoid tautologies, but do not omit a useful tag solely because TypeScript declares the type.
 - Document **every generic type parameter** on public generic declarations with `@template`, including what it represents, how it flows through the API, and the meaning of defaults or constraints where applicable. Describe the role of each parameter, not merely its type or letter. Match existing repository conventions for `@template` formatting.
 - Document public options types and their properties, including required inputs, optional defaults, and behavioral consequences. Use `{@link ...}` to connect related declarations when supported by repository conventions. Avoid copying the same detailed explanation into every consuming method.
@@ -42,7 +42,7 @@ Document the observable behavior, constraints, or caveats that callers need to k
 - Do not infer runtime validation, immutability, delivery guarantees, exception types, or cleanup behavior from static types alone.
 - Do not promise that a promise resolves at a stronger milestone than implementation establishes.
 - Distinguish an API's own responsibilities from those of injected dependencies.
-- Do not invent intent or behavior to fill gaps. Flag unresolved questions rather than asserting guesses.
+- Do not invent intent or behavior to fill gaps. Flag unresolved questions rather than asserting guesses. Avoid phrases such as "the current implementation" that make documentation sound like a snapshot of internals instead of a stable API contract; if a behavior appears to be a bug or conflicts with intended semantics, flag it for review rather than normalizing it in JSDoc.
 - Avoid filler such as "Gets the value" for `getValue()`, but prefer a concrete description of the value's role over omitting documentation for a public member. Do not spend coverage effort on self-evident private implementation details unless specifically requested.
 
 ## Verify and deliver
