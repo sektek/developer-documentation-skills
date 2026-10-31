@@ -13,8 +13,9 @@ Apply [technical-writing](../technical-writing/SKILL.md) and [markdown-authoring
 
 1. Identify the reader and the **conceptual question** they cannot readily answer from existing documentation. Examples include how components cooperate, why a boundary exists, or how to choose among related concepts.
 2. Inspect existing README, guides, API docs, and conceptual material. If a short clarification or link in an existing document would suffice, prefer that to creating another page.
-3. Define one coherent scope. Do not create a separate page for every class, concept, or pattern by default.
-4. Use the documentation-workflow skill to choose placement; do not prescribe a directory structure or require conceptual documentation for every repository.
+3. State the **central conceptual insight** in one sentence before drafting: what should the reader understand afterward that a catalog of APIs would not teach? Organize the explanation to develop that insight. If no distinct insight emerges, reconsider whether a separate document is needed.
+4. Define one coherent scope. Do not create a separate page for every class, concept, or pattern by default.
+5. Use the documentation-workflow skill to choose placement **and a discoverable entry point** (such as an existing README or docs index); do not prescribe a directory structure or require conceptual documentation for every repository.
 
 ## Establish an evidence-based mental model
 
@@ -27,7 +28,7 @@ Apply [technical-writing](../technical-writing/SKILL.md) and [markdown-authoring
 ## Write the explanation
 
 - Open with the question or mental model the document answers and why understanding it matters to the reader.
-- Organize around ideas and relationships, not a parade of exported classes. Explain how the parts work together and what choices or expectations follow from that arrangement.
+- Organize around the central insight, ideas, and relationships, not a parade of exported classes. Explain how the parts work together and what choices or expectations follow from that arrangement.
 - Use a small illustrative scenario or diagram when it makes a relationship clearer. Illustrations should clarify the model rather than become a runnable walkthrough or a complete implementation.
 - Explain tradeoffs, boundaries, and consequences when they help the reader reason about usage. Avoid unverified design rationales or retrospective claims about why authors chose an approach.
 - Link to relevant public declarations, how-to guides, and references for exact APIs and procedures. Do not duplicate signatures, option tables, event lists, or step-by-step instructions.
@@ -38,5 +39,6 @@ Apply [technical-writing](../technical-writing/SKILL.md) and [markdown-authoring
 
 - Check each significant concept, relationship, and guarantee against the inspected evidence; note unresolved questions explicitly.
 - Review for plausible but unsupported architectural claims, misleading conventional terminology, redundancy with existing docs, and unexplained leaps between concepts.
-- Follow links and inspect diagrams and examples where tooling permits. Do not claim that a conceptual explanation is verified solely because code compiles or lint passes.
+- Check whether previous review findings or memorable edge cases have been overemphasized at the expense of the reader's actual question. Use past mistakes to improve verification, not as mandatory topics for every new explanation.
+- Verify relative links from the document's actual directory, confirm that targets exist, and check that readers can discover the explanation from an appropriate entry point. Inspect diagrams and examples where tooling permits. Do not claim that a conceptual explanation is verified solely because code compiles or lint passes.
 - Report the intended reader and conceptual question, where the document belongs, what evidence supports it, and any uncertainties needing a human decision.
