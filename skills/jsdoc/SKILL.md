@@ -5,7 +5,7 @@ description: Write, complete, or review JSDoc and TSDoc-style comments on JavaSc
 
 # JSDoc authoring
 
-Document the contract a caller needs to use an API correctly. Favor thorough, useful documentation of the public contract, including generic type parameters and options. TypeScript declarations express structure but do not replace explanations of roles, relationships, defaults, or intended usage. Apply [technical-writing](../technical-writing/SKILL.md); use [api-research](../api-research/SKILL.md) when behavior, intended usage, or ownership is uncertain.
+Document the contract a caller needs to use an API correctly. Favor thorough, useful documentation of the public contract, including generic type parameters and options. TypeScript declarations express structure but do not replace explanations of roles, relationships, defaults, or intended usage. Apply [technical-writing](../technical-writing/SKILL.md) and use [api-research](../api-research/SKILL.md) to establish relevant purpose, terminology, behavior, and relationships when writing technical claims.
 
 ## Select the scope
 
@@ -15,8 +15,7 @@ Document the contract a caller needs to use an API correctly. Favor thorough, us
 
 ## Establish intent and documentation ownership
 
-- Determine a declaration's **primary purpose** from its public contract, usage, and surrounding architecture before writing its summary. Treat naming as a clue, not proof of responsibility. Implementation mechanics and optional secondary behavior must not displace that purpose. For example, a filter with an optional rejection handler remains a filter, not a router.
-- **Establish terminology from the project.** Before describing a declaration's responsibilities, examine how its key terms are used across related public APIs, existing documentation, and call sites. Prefer established project terminology over conventional interpretations of names. When the intended role remains ambiguous, flag it for human review rather than inventing a definition.
+- Use api-research findings to identify a declaration's primary public purpose and established terminology. Keep the summary focused on that purpose rather than secondary behavior or implementation mechanics. Flag unresolved intent rather than guessing.
 - Give each fact one natural documentation home. Class documentation explains the component's purpose and essential usage; related types describe their own contracts; options and properties describe configuration; methods describe invocation-specific behavior. **Connect readers to useful related declarations** with supported documentation links rather than repeating their details. Prioritize links that help consumers discover capabilities, configuration, results, or constraints; avoid links that merely restate inheritance or implementation details.
 - Do not narrate a class's implementation or enumerate details already documented by dedicated public declarations. When those details are important to consumers, provide a concise contextual pointer to their documentation. Repeat a detail only when it is essential to understand the higher-level contract without navigating elsewhere.
 - Before drafting, inspect the related public types and existing JSDoc to identify what is already documented. After drafting, check for duplicated information and for descriptions that overemphasize incidental behavior.
