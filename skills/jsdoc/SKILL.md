@@ -16,8 +16,8 @@ Document the contract a caller needs to use an API correctly. Favor thorough, us
 ## Establish intent and documentation ownership
 
 - Determine a declaration's **primary purpose** from its public role, naming, usage, and surrounding architecture before writing its summary. Implementation mechanics and optional secondary behavior must not displace that purpose. For example, a filter with an optional rejection handler remains a filter, not a router.
-- Give each fact one natural documentation home. Class documentation explains the component's purpose and essential usage; event types describe emitted events; options and properties describe configuration; methods describe invocation-specific contracts. Link related declarations rather than restating their details.
-- Do not narrate a class's implementation, list all of its events, or enumerate its options when dedicated public declarations already document them. Repeat a detail only when it is essential to understand the higher-level contract without navigating elsewhere.
+- Give each fact one natural documentation home. Class documentation explains the component's purpose and essential usage; related types describe their own contracts; options and properties describe configuration; methods describe invocation-specific behavior. **Connect readers to useful related declarations** with supported documentation links rather than repeating their details. Prioritize links that help consumers discover capabilities, configuration, results, or constraints; avoid links that merely restate inheritance or implementation details.
+- Do not narrate a class's implementation or enumerate details already documented by dedicated public declarations. When those details are important to consumers, provide a concise contextual pointer to their documentation. Repeat a detail only when it is essential to understand the higher-level contract without navigating elsewhere.
 - Before drafting, inspect the related public types and existing JSDoc to identify what is already documented. After drafting, check for duplicated information and for descriptions that overemphasize incidental behavior.
 
 ## Describe the contract
