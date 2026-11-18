@@ -1,5 +1,7 @@
 # Developer Documentation Skills
 
+> **These skills have moved.** They now live in [`sektek/skills`](https://github.com/sektek/skills), under `skills/documentation/`, with releases, a Claude Code marketplace and install instructions for other agent harnesses. This repository is kept for reference and will be archived; new work happens there.
+
 Markdown-first, composable AI skills for software developer documentation.
 
 ## Skills
